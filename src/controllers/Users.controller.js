@@ -9,9 +9,7 @@ const login = async (req, res, next) => {
     if (status === 'BAD_REQUEST') {
       return res.status(mapStatusHTTP(status)).json(data);
     }
-  
     const token = createToken({ email });
-  
     return res.status(mapStatusHTTP(status)).json({ token });
   } catch (error) {
     console.log(error.message);
@@ -23,17 +21,12 @@ const create = async (req, res, next) => {
   try {
     const { displayName, email, password } = req.body;
     const image = req.body.image ? req.body.image : '';
-
     const { status } = await usersService.search(email, password);
-  
     if (status === 'OK') {
       return res.status(409).json({ message: 'User already registered' });
     }
-
     const newUser = await usersService.register(displayName, email, password, image);
-    
     const token = createToken({ email });
-
     return res.status(mapStatusHTTP(newUser.status)).json({ token });
   } catch (error) {
     console.log(error.message);
@@ -51,8 +44,15 @@ const usersList = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  login,
-  create,
-  usersList,
+const findById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { status, data } = await usersService.findById(id);
+    return res.status(mapStatusHTTP(status)).json(data);
+  } catch (error) {
+    console.log(error.message);
+    next(error);
+  }
 };
+
+module.exports = { login, create, usersList, findById };
