@@ -1,10 +1,10 @@
-const { validateLoginFields } = require('./validations/validation_login_fields');
+const { validateRegisterFields } = require('./validations/validation_login_fields');
 const mapStatusHTTP = require('../utils/mapStatusHTTP');
 
-const validateLogin = (req, res, next) => {
+const validateRegister = (req, res, next) => {
   const { body } = req;
   try {
-    const error = validateLoginFields(body);
+    const error = validateRegisterFields(body);
   
     if (error) {
       return res.status(mapStatusHTTP(error.status))
@@ -18,4 +18,4 @@ const validateLogin = (req, res, next) => {
   }
 };
 
-module.exports = validateLogin;
+module.exports = validateRegister;

@@ -1,5 +1,5 @@
 const express = require('express');
-const middlewares = require('./middlewares/validateLogin');
+const middleware = require('./middlewares/index');
 const usersController = require('./controllers/Users.controller');
 
 // ...
@@ -13,7 +13,8 @@ app.get('/', (_request, response) => {
 
 app.use(express.json());
 
-app.post('/login', middlewares.validateLogin, usersController.login);
+app.post('/login', middleware.validateLogin, usersController.login);
+app.post('/user', middleware.validateRegister, usersController.create);
 
 // ...
 app.use((error, _rea, res, _next) => {
