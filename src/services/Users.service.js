@@ -1,9 +1,8 @@
 const { User } = require('../models');
 
 const search = async (email, password) => {
-  console.log(email);
   const searchUser = await User.findOne({ where: { email } });
-  console.log(searchUser);
+
   if (!searchUser) {
     return { status: 'BAD_REQUEST', data: { message: 'Invalid fields' } };
   }
@@ -21,7 +20,14 @@ const register = async (displayName, email, password, image) => {
   return { status: 'CREATED', data: registerUser };
 };
 
+const searchAll = async () => {
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+
+  return { status: 'OK', data: users };
+};
+
 module.exports = {
   search,
   register,
+  searchAll,
 };

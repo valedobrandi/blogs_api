@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const extractToken = require('./extractToken');
 
 const { JWT_SECRET } = process.env;
 
@@ -13,6 +14,6 @@ const createToken = (payload) => {
   return token;
 };
 
-const verify = (token) => jwt.verify(token, JWT_SECRET);
+const verify = (token) => jwt.verify(extractToken(token), JWT_SECRET);
 
 module.exports = { createToken, verify };

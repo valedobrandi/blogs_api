@@ -41,7 +41,18 @@ const create = async (req, res, next) => {
   }
 };
 
+const usersList = async (req, res, next) => {
+  try {
+    const { status, data } = await usersService.searchAll();
+    return res.status(mapStatusHTTP(status)).json(data);
+  } catch (error) {
+    console.log(error.message);
+    next(error);
+  }
+};
+
 module.exports = {
   login,
   create,
+  usersList,
 };
