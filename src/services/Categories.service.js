@@ -6,4 +6,10 @@ const register = async (name) => {
   return { status: 'CREATED', data: newCategory };
 };
 
-module.exports = { register };
+const searchAll = async () => {
+  const catagories = await Category.findAll();
+
+  return { status: 'SUCCESSFUL', data: catagories };
+};
+
+module.exports = { register, searchAll };

@@ -12,4 +12,14 @@ const register = async (req, res, next) => {
   }
 };
 
-module.exports = { register };
+const categoriesList = async (req, res, next) => {
+  try {
+    const { status, data } = await categoriesService.searchAll();
+    return res.status(mapStatusHTTP(status)).json(data);
+  } catch (error) {
+    console.log(error.message);
+    next(error);
+  }
+};
+
+module.exports = { register, categoriesList };
