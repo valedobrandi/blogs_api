@@ -1,4 +1,4 @@
-const { validateLoginFields } = require('./validations/validation_login_fields');
+const { validateLoginFields } = require('./validations/validationfields');
 const mapStatusHTTP = require('../utils/mapStatusHTTP');
 
 const validateLogin = (req, res, next) => {

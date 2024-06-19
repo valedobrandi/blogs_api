@@ -18,4 +18,15 @@ const validateRegisterFields = (keysObjectToValidate) => {
   }
 };
 
-module.exports = { validateLoginFields, validateRegisterFields };
+const validateNameField = (keysObjectToValidate) => {
+  const { error } = schema.nameField.validate(keysObjectToValidate);
+  
+  if (error) {
+    return {
+      status: 'BAD_REQUEST', data: { message: error.message } }; 
+  }
+};
+
+module.exports = {
+  validateLoginFields, validateRegisterFields, validateNameField, 
+};

@@ -2,6 +2,7 @@ const express = require('express');
 const middleware = require('./middlewares/index');
 const usersController = require('./controllers/Users.controller');
 const userRoutes = require('./routes/user.route');
+const categoryRoutes = require('./routes/Categoy.route');
 
 // ...
 
@@ -15,6 +16,7 @@ app.get('/', (_request, response) => {
 app.use(express.json());
 
 app.use('/user', userRoutes);
+app.use('/categories', categoryRoutes);
 
 app.post('/login', middleware.validateLogin, usersController.login);
 

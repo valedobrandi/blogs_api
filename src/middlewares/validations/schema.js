@@ -12,7 +12,12 @@ const registerUser = Joi.object({
   image: Joi.string(),
 });
 
+const nameField = Joi.object({
+  name: Joi.string().min(1).required(),
+});
+
 module.exports = {
   loginFields,
   registerUser,
+  nameField,
 };

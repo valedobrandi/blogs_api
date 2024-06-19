@@ -1,10 +1,10 @@
-const { validateRegisterFields } = require('./validations/validationfields');
+const { validateNameField } = require('./validations/validationfields');
 const mapStatusHTTP = require('../utils/mapStatusHTTP');
 
-const validateRegister = (req, res, next) => {
+const validateName = (req, res, next) => {
   const { body } = req;
   try {
-    const error = validateRegisterFields(body);
+    const error = validateNameField(body);
   
     if (error) {
       return res.status(mapStatusHTTP(error.status))
@@ -18,4 +18,4 @@ const validateRegister = (req, res, next) => {
   }
 };
 
-module.exports = validateRegister;
+module.exports = validateName;
