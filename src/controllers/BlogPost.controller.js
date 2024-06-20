@@ -6,9 +6,7 @@ const mapStatusHTTP = require('../utils/mapStatusHTTP');
 const create = async (req, res, next) => {
   try {
     const { title, content, categoryIds } = req.body;
-
     const user = await usersService.findById(categoryIds[0]);
-
     if (user.status === 'NOT_FOUND') {
       return res.status(400).json({ message: 'one or more "categoryIds" not found' });
     }
@@ -16,33 +14,41 @@ const create = async (req, res, next) => {
     if (categoy.status === 'NOT_FOUND') {
       return res.status(400).json({ message: 'one or more "categoryIds" not found' });
     }
-
     const { status, data } = await blogsPostService
       .create(title, content, categoryIds, req.user);
-
     return res.status(mapStatusHTTP(status)).json(data);
   } catch (error) {
     console.log(error.message);
     next(error);
   }
 };
-
 const searchAll = async (req, res, next) => {
   try {
     const { status, data } = await blogsPostService.getAll();
-
     return res.status(mapStatusHTTP(status)).json(data);
   } catch (error) {
     console.log(error.message);
     next(error);
   }
 };
-
 const searchById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { status, data } = await blogsPostService.getById(id);
-
+    return res.status(mapStatusHTTP(status)).json(data);
+  } catch (error) {
+    console.log(error.message);
+    next(error);
+  }
+};
+const updateById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { title, content } = req.body;
+    const getBlogPostById = await blogsPostService.getById(id);
+    const { userId } = getBlogPostById.data;
+    if (userId !== req.user) return res.status(401).json({ message: 'Unauthorized user' }); 
+    const { data, status } = await blogsPostService.updateById(title, content, id);
     return res.status(mapStatusHTTP(status)).json(data);
   } catch (error) {
     console.log(error.message);
@@ -50,4 +56,4 @@ const searchById = async (req, res, next) => {
   }
 };
 
-module.exports = { create, searchAll, searchById };
+module.exports = { create, searchAll, searchById, updateById };

@@ -11,5 +11,11 @@ route.post(
 
 route.get('', middleware.authorization, blogPostController.searchAll);
 route.get('/:id', middleware.authorization, blogPostController.searchById);
+route.put(
+  '/:id', 
+  middleware.authorization, 
+  middleware.validadeUpdateBlogPost, 
+  blogPostController.updateById,
+);
 
 module.exports = route;

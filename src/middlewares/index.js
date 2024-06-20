@@ -3,6 +3,7 @@ const validateRegister = require('./validateRegister');
 const authorization = require('./auth');
 const validateName = require('./validateName');
 const validateBlogPostField = require('./validateBlogPostField');
+const validadeUpdateBlogPost = require('./validadeUpdateBlogPost');
 
 module.exports = {
   validateLogin,
@@ -10,4 +11,5 @@ module.exports = {
   authorization,
   validateName,
   validateBlogPostField,
+  validadeUpdateBlogPost,
 };

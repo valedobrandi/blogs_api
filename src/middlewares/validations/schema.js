@@ -22,9 +22,15 @@ const blogPostFields = Joi.object({
   categoryIds: Joi.required(),
 });
 
+const updateBlogPostFields = Joi.object({
+  title: Joi.string().min(1).required(),
+  content: Joi.string().min(1).required(),
+});
+
 module.exports = {
   loginFields,
   registerUser,
   nameField,
   blogPostFields,
+  updateBlogPostFields,
 };
