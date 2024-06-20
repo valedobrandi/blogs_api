@@ -38,4 +38,16 @@ const searchAll = async (req, res, next) => {
   }
 };
 
-module.exports = { create, searchAll };
+const searchById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { status, data } = await blogsPostService.getById(id);
+
+    return res.status(mapStatusHTTP(status)).json(data);
+  } catch (error) {
+    console.log(error.message);
+    next(error);
+  }
+};
+
+module.exports = { create, searchAll, searchById };

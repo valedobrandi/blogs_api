@@ -10,5 +10,6 @@ route.post(
 );
 
 route.get('', middleware.authorization, blogPostController.searchAll);
+route.get('/:id', middleware.authorization, blogPostController.searchById);
 
 module.exports = route;

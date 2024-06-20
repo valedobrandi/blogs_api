@@ -28,9 +28,23 @@ const getAll = async () => {
     ],
   });
 
-  console.log(JSON.stringify(searhAllBlogPosts, null, 2));
+  return { status: 'SUCCESSFUL', data: searhAllBlogPosts };
+};
+
+const getById = async (id) => {
+  const searhAllBlogPosts = await BlogPost.findOne({
+    where: { id },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } }, 
+      { model: Category, as: 'categories' },
+    ],
+  });
+
+  if (searhAllBlogPosts === null) {
+    return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
+  }
 
   return { status: 'SUCCESSFUL', data: searhAllBlogPosts };
 };
 
-module.exports = { create, getAll };
+module.exports = { create, getAll, getById };
