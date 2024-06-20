@@ -2,8 +2,8 @@ const express = require('express');
 const middleware = require('./middlewares/index');
 const usersController = require('./controllers/Users.controller');
 const userRoutes = require('./routes/user.route');
-const categoryRoutes = require('./routes/Categoy.route');
-const postCategoriesController = require('./controllers/BlogPost.controller');
+const categoryRoutes = require('./routes/categoy.route');
+const postRoutes = require('./routes/post.route');
 
 // ...
 
@@ -18,13 +18,9 @@ app.use(express.json());
 
 app.use('/user', userRoutes);
 app.use('/categories', categoryRoutes);
+app.use('/post', postRoutes);
+
 app.post('/login', middleware.validateLogin, usersController.login);
-app.post(
-  '/post', 
-  middleware.validateBlogPostField,
-  middleware.authorization,
-  postCategoriesController.create,
-);
 
 // ...
 app.use((error, _rea, res, _next) => {

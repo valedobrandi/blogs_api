@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-const { BlogPost } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 const postCategoriesService = require('./PostCategories.service');
 const config = require('../config/config');
 
@@ -20,4 +20,17 @@ const create = async (title, content, categoryIds, id) => {
   return { status: 'CREATED', data: insertBlogPost };
 };
 
-module.exports = { create };
+const getAll = async () => {
+  const searhAllBlogPosts = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } }, 
+      { model: Category, as: 'categories' },
+    ],
+  });
+
+  console.log(JSON.stringify(searhAllBlogPosts, null, 2));
+
+  return { status: 'SUCCESSFUL', data: searhAllBlogPosts };
+};
+
+module.exports = { create, getAll };
