@@ -16,8 +16,15 @@ const nameField = Joi.object({
   name: Joi.string().min(1).required(),
 });
 
+const blogPostFields = Joi.object({
+  title: Joi.string().min(1).required(),
+  content: Joi.string().min(1).required(),
+  categoryIds: Joi.required(),
+});
+
 module.exports = {
   loginFields,
   registerUser,
   nameField,
+  blogPostFields,
 };

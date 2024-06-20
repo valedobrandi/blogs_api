@@ -35,9 +35,20 @@ const findById = async (id) => {
   return { status: 'OK', data: user };
 };
 
+const searchByEmail = async (email) => {
+  const searchUser = await User.findOne({ where: { email } });
+
+  if (!searchUser) {
+    return { status: 'BAD_REQUEST', data: { message: 'Invalid fields' } };
+  }
+
+  return { status: 'OK', data: searchUser };
+};
+
 module.exports = {
   search,
   register,
   searchAll,
   findById,
+  searchByEmail,
 };

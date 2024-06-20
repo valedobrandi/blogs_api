@@ -27,6 +27,18 @@ const validateNameField = (keysObjectToValidate) => {
   }
 };
 
+const validateBlogPostField = (keysObjectToValidate) => {
+  const { error } = schema.blogPostFields.validate(keysObjectToValidate);
+ 
+  if (error) {
+    return {
+      status: 'BAD_REQUEST', data: { message: 'Some required fields are missing' } }; 
+  }
+};
+
 module.exports = {
-  validateLoginFields, validateRegisterFields, validateNameField, 
+  validateLoginFields, 
+  validateRegisterFields, 
+  validateNameField, 
+  validateBlogPostField,
 };

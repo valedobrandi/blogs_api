@@ -12,4 +12,13 @@ const searchAll = async () => {
   return { status: 'SUCCESSFUL', data: catagories };
 };
 
-module.exports = { register, searchAll };
+const findById = async (id) => {
+  const category = await Category.findByPk(id);
+
+  if (!category) {
+    return { status: 'NOT_FOUND', data: { message: 'User does not exist' } }; 
+  }
+  return { status: 'OK', data: category };
+};
+
+module.exports = { register, searchAll, findById };

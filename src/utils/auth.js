@@ -14,6 +14,10 @@ const createToken = (payload) => {
   return token;
 };
 
-const verify = (token) => jwt.verify(extractToken(token), JWT_SECRET);
+const verify = (token) => {
+  const BearerExtract = extractToken(token);
+  
+  return jwt.verify(BearerExtract, JWT_SECRET); 
+};
 
 module.exports = { createToken, verify };
