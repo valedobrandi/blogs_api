@@ -55,5 +55,4 @@ const updateById = async (req, res, next) => {
     next(error);
   }
 };
-
 module.exports = { create, searchAll, searchById, updateById };

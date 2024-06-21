@@ -1,6 +1,7 @@
 const route = require('express').Router();
 const middleware = require('../middlewares/index');
 const blogPostController = require('../controllers/BlogPost.controller');
+const blogPostTwoController = require('../controllers/BlogPostTwo.controller');
 
 route.post(
   '', 
@@ -16,6 +17,11 @@ route.put(
   middleware.authorization, 
   middleware.validadeUpdateBlogPost, 
   blogPostController.updateById,
+);
+route.delete(
+  '/:id', 
+  middleware.authorization, 
+  blogPostTwoController.deleteById,
 );
 
 module.exports = route;

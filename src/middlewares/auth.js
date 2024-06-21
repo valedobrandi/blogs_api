@@ -11,8 +11,7 @@ const authorization = async (req, res, next) => {
   try {
     const decoded = verify(Bearer);
     const user = await usersService.searchByEmail(decoded.email);
-
-    console.log(user.data.id);
+ 
     if (user.status === 'BAD_REQUEST') {
       return res.status(400).json({ message: 'Expired or invalid token' });
     }

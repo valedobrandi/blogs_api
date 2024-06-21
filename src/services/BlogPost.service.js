@@ -16,7 +16,6 @@ const create = async (title, content, categoryIds, id) => {
   await postCategoriesService.create(insertBlogPost.id, categoryIds);
   return { status: 'CREATED', data: insertBlogPost };
 };
-
 const getAll = async () => {
   const searhAllBlogPosts = await BlogPost.findAll({
     include: [
@@ -41,13 +40,17 @@ const getById = async (id) => {
   }
   return { status: 'SUCCESSFUL', data: searchBlogPostById };
 };
-
 const updateById = async (title, content, id) => {
   await BlogPost.update({ title, content }, { where: { id } });
-
   const searchBlogPostById = await getById(id);
-
   return { status: 'SUCCESSFUL', data: searchBlogPostById.data };
 };
+const deleteById = async (id) => {
+  const deleteBlogPost = await BlogPost.destroy({
+    where: { id } });
 
-module.exports = { create, getAll, getById, updateById };
+  return { status: 'DELETE', data: deleteBlogPost };
+};
+
+module.exports = {
+  create, getAll, getById, updateById, deleteById };
