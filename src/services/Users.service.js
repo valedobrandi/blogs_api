@@ -45,10 +45,16 @@ const searchByEmail = async (email) => {
   return { status: 'OK', data: searchUser };
 };
 
+const remove = async (id) => {
+  const response = await User.destroy({ where: { id } });
+  return { status: 'DELETE', data: response };
+}; 
+
 module.exports = {
   search,
   register,
   searchAll,
   findById,
   searchByEmail,
+  remove,
 };
