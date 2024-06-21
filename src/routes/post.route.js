@@ -1,7 +1,13 @@
 const route = require('express').Router();
 const middleware = require('../middlewares/index');
 const blogPostController = require('../controllers/BlogPost.controller');
-const blogPostTwoController = require('../controllers/BlogPostTwo.controller');
+const blogPostTwoController = require('../controllers/BlogPost_2.controller');
+
+route.get(
+  '/search', 
+  middleware.authorization,
+  blogPostTwoController.findByQuery,
+);
 
 route.post(
   '', 
